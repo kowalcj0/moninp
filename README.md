@@ -9,6 +9,8 @@ You can find it on [Unix StackExchange](http://unix.stackexchange.com/a/94329)
 
 I use this little program to control [Volumio](https://volumio.org/) with
 [Xbox One Media Remote](http://www.xbox.com/en-GB/xbox-one/accessories/controllers/media-remote)
+and [1st gen Flirc USB](https://flirc.tv/more/flirc-usb-v1)
+![Flirc USB 1st gen](flirc-usb-1st-gen.png)
 
 
 # Provided mapping
