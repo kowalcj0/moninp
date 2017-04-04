@@ -45,3 +45,30 @@ My [1st gen Flirc USB](https://flirc.tv/more/flirc-usb-v1) is identified as
 sudo ./moninp /dev/input/by-id/usb-flirc.tv_flirc-event-kbd
 ```
 
+# Using your own mapping
+
+If you'd like to change the mapping, then ATM you will have to:
+
+1. run `monimp` binary for your selected input device
+2. press a button on your remote
+3. find the button `code` for an event with `type=00` & `value=00` (key up)
+
+e.g.: in the example below we're after `code` from line number `5` (2nd would work too :) )
+```bash
+1491342238.860640: type=04 code=04 value=c00cd
+1491342238.860640: type=01 code=a4 value=01
+1491342238.860640: type=00 code=00 value=00
+1491342239.020638: type=04 code=04 value=c00cd
+1491342239.020638: type=01 code=a4 value=00
+1491342239.020638: type=00 code=00 value=00
+1491342244.333333: type=04 code=04 value=c00b3
+1491342244.333333: type=01 code=d0 value=01
+```
+4. add new mapping for this `code` or replace existing one
+5. compile, upload binary to your `mpd` powered player and enjoy
+
+# Futurue work
+
+* load mappings from a simple properties file
+* autodetect Flirc device
+
