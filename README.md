@@ -13,11 +13,10 @@ I use this little program to control [Volumio](https://volumio.org/) with
 
 # Provided mapping
 
-This project uses mapping for ![Xbox One Media Remote Flirc Config](xbox_one_media_remote_flirc_config.fcfg) which you can 
-load into your Flirc USB.
+This project uses my Flirc button mapping for Xbox One Media Remote which you 
+can find in [xbox_one_media_remote_flirc_config.fcfg](https://github.com/kowalcj0/moninp/raw/master/xbox_one_media_remote_flirc_config.fcfg)
 
 ![Xbox One Media Remote Mapping](xboxonemapping.png)
-Format: ![Alt Text](url)
 
 # Compile
 
