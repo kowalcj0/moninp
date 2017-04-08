@@ -1,0 +1,17 @@
+[Unit]
+Description=Input Device Event Monitor
+After=multi-user.target
+
+[Service]
+EnvironmentFile=/etc/default/mpd
+ExecStart=/usr/local/bin/moninp /dev/input/by-id/usb-flirc.tv_flirc-event-kbd
+LimitRTPRIO=50
+LimitRTTIME=-1
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=moninp
+
+[Install]
+WantedBy=multi-user.target
+
