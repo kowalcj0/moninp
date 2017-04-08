@@ -93,10 +93,10 @@ int main(int argc, char *argv[]) {
             #include <stdlib.h>
             if (ev[i].type == 0x1 && ev[i].value == 0x0) {
                 if (ev[i].code == 0x66) { printf("Home button pressed\n"); system("mpc toggle >/dev/null 2>&1"); }
-                if (ev[i].code == 0x21) { printf("f button pressed\n"); system("mpc crossfade 5 >/dev/null 2>&1"); }
-                if (ev[i].code == 0x26) { printf("l button pressed\n"); system("mpc random off && mpc repeat off && mpc single off >/dev/null 2>&1"); }
-                if (ev[i].code == 0x1f) { printf("s button pressed\n"); system("mpc random on && mpc repeat off && mpc single off >/dev/null 2>&1"); }
-                if (ev[i].code == 0x01) { printf("Esc button pressed\n"); system("mpc random off && mpc repeat on && mpc single on >/dev/null 2>&1"); }
+                if (ev[i].code == 0x21) { printf("f button pressed\n"); system("if [ $(mpc crossfade | cut -d' ' -f 2) -gt 0 ]; then mpc crossfade 0; else mpc crossfade 5; fi; >/dev/null 2>&1"); }
+                if (ev[i].code == 0x26) { printf("l button pressed\n"); system("mpc random off && mpc repeat off && mpc single off && mpc consume off >/dev/null 2>&1"); }
+                if (ev[i].code == 0x1f) { printf("s button pressed\n"); system("mpc random on && mpc repeat off && mpc single off && mpc consume off >/dev/null 2>&1"); }
+                if (ev[i].code == 0x01) { printf("Esc button pressed\n"); system("mpc random off && mpc repeat on && mpc single on && mpc consume off >/dev/null 2>&1"); }
                 if (ev[i].code == 0x67) { printf("Up button pressed\n"); system("mpc volume +5 >/dev/null 2>&1"); }
                 if (ev[i].code == 0x69) { printf("Left button pressed\n"); system("mpc prev >/dev/null 2>&1"); }
                 if (ev[i].code == 0x6a) { printf("Right button pressed\n"); system("mpc next >/dev/null 2>&1"); }
