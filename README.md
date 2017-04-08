@@ -45,6 +45,93 @@ My [1st gen Flirc USB](https://flirc.tv/more/flirc-usb-v1) is identified as
 sudo ./moninp /dev/input/by-id/usb-flirc.tv_flirc-event-kbd
 ```
 
+Run manually in the backgroud:
+```bash
+sudo sh -c 'nohup ./moninp /dev/input/by-id/usb-flirc.tv_flirc-event-kbd &'
+```
+
+To run it on Volumio start-up:
+
+1. copy prefered `moninp_*` binary to `/usr/local/bin`
+2. rename the `/usr/local/bin/moninp_*` binary to `/usr/local/bin/moninp`
+3. copy ![moninp](etc/init.d/moninp) start-up script to `/etc/init.d/`
+4. copy ![moninp.service](etc/systemd/system/moninp.service) to `/etc/systemd/system/moninp.service`
+5. SSH onto your volumio
+6. Check if `moninp` is NOT running with `systemctl status moninp.service`
+
+```bash
+volumio@volumio:/etc/systemd/system$ systemctl status moninp.service
+● moninp.service - Input Device Event Monitor
+   Loaded: loaded (/etc/systemd/system/moninp.service; disabled)
+   Active: inactive (dead)
+
+Apr 08 15:20:37 volumio systemd[1]: Starting LSB: Monitor Input Device Events...
+Apr 08 15:20:37 volumio systemd[1]: Started LSB: Monitor Input Device Events.
+Apr 08 15:20:37 volumio moninp[545]: Starting moninp...                                Ok
+Apr 08 15:26:17 volumio systemd[1]: Stopping LSB: Monitor Input Device Events...
+Apr 08 15:26:17 volumio moninp[1462]: Stopping moninp                                   /etc/init.d/moninp: line 56: kill: (550) - No such process
+Apr 08 15:26:17 volumio moninp[1462]: Ok
+Apr 08 15:26:17 volumio systemd[1]: Stopped LSB: Monitor Input Device Events.
+```
+
+7. Start `moninp` service with `systemctl start moninp.service`
+
+```bash
+volumio@volumio:/etc/systemd/system$ systemctl status moninp.service
+● moninp.service - Input Device Event Monitor
+   Loaded: loaded (/etc/systemd/system/moninp.service; disabled)
+   Active: active (running) since Sat 2017-04-08 15:46:55 UTC; 2s ago
+ Main PID: 1780 (moninp)
+   CGroup: /system.slice/moninp.service
+           └─1780 /usr/local/bin/moninp /dev/input/by-id/usb-flirc.tv_flirc-event-kbd
+
+Apr 08 15:46:55 volumio systemd[1]: Started Input Device Event Monitor.
+Apr 08 15:46:55 volumio moninp[1780]: Name      : flirc.tv flirc
+Apr 08 15:46:55 volumio moninp[1780]: Version   : 1.0.1
+Apr 08 15:46:55 volumio moninp[1780]: ID        : Bus=0003 Vendor=20a0 Product=0001 Version=0101
+Apr 08 15:46:55 volumio moninp[1780]: ----------
+```
+
+8. Finally enable `moninp` service on start with `systemctl enable moninp.service`
+
+If everything went smoothly, then you should see something like:
+
+```bash
+volumio@volumio:/etc/systemd/system$ systemctl enable moninp.service
+Synchronizing state for moninp.service with sysvinit using update-rc.d...
+Executing /usr/sbin/update-rc.d moninp defaults
+insserv: warning: current start runlevel(s) (empty) of script `moninp' overrides LSB defaults (2 3 4 5).
+insserv: warning: current stop runlevel(s) (0 1 2 3 4 5 6) of script `moninp' overrides LSB defaults (0 1 6).
+Executing /usr/sbin/update-rc.d moninp enable
+```
+
+In some situations `Perl` might print some warnings, but you can ignore them.
+
+```bash
+volumio@volumio:/etc/systemd/system$ systemctl enable moninp.service
+Synchronizing state for moninp.service with sysvinit using update-rc.d...
+Executing /usr/sbin/update-rc.d moninp defaults
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_COLLATE = "C",
+	LANG = "en_GB.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+insserv: warning: current start runlevel(s) (empty) of script `moninp' overrides LSB defaults (2 3 4 5).
+insserv: warning: current stop runlevel(s) (0 1 2 3 4 5 6) of script `moninp' overrides LSB defaults (0 1 6).
+Executing /usr/sbin/update-rc.d moninp enable
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_COLLATE = "C",
+	LANG = "en_GB.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+```
+
 # Using your own mapping
 
 If you'd like to change the mapping, then ATM you will have to:
