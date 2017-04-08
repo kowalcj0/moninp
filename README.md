@@ -54,8 +54,8 @@ To run it on Volumio start-up:
 
 1. copy prefered `moninp_*` binary to `/usr/local/bin`
 2. rename the `/usr/local/bin/moninp_*` binary to `/usr/local/bin/moninp`
-3. copy ![moninp](etc/init.d/moninp) start-up script to `/etc/init.d/`
-4. copy ![moninp.service](etc/systemd/system/moninp.service) to `/etc/systemd/system/moninp.service`
+3. copy [moninp](etc/init.d/moninp) start-up script to `/etc/init.d/`
+4. copy [moninp.service](etc/systemd/system/moninp.service) to `/etc/systemd/system/moninp.service`
 5. SSH onto your volumio
 6. Check if `moninp` is NOT running with `systemctl status moninp.service`
 
